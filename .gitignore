@@ -40,7 +40,6 @@
 # Ignore media uploads (highly recommended to keep repo size small.)
 /wp-content/uploads/
 
-wp-content/plugins/
 wp-content/ai1wm-backups/
 
 # ==============================================================================
