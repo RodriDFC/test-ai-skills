@@ -1,0 +1,37 @@
+{
+  "name": "acf/cta-form",
+  "title": "Cta Form",
+  "description": "General content section block with flexible layout options.",
+  "style": [
+    "file:./cta-form.css"
+  ],
+  "category": "kickmaker-blocks",
+  "icon": "media-text",
+  "keywords": [
+    "general",
+    "content",
+    "section",
+    "text"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "cta-form.php",
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "fullHeight": true,
+    "anchor": true,
+    "className": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  }
+}

@@ -1,0 +1,655 @@
+@use "sass:map";
+
+// Anchor scroll offset for fixed/sticky header
+:root {
+    --header-height: 90px;
+    --admin-bar-height: 0px;
+}
+
+:root:has(body.admin-bar) {
+    --admin-bar-height: 32px;
+
+    @media screen and (max-width: 782px) {
+        --admin-bar-height: 46px;
+    }
+
+    @media screen and (max-width: 600px) {
+        --admin-bar-height: 0px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height, 90px) + var(--admin-bar-height, 0px) + 24px);
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    @include responsive-font-size($text-base);
+    line-height: 1.5rem;
+    font-weight: 400;
+    background-color: $white !important;
+    font-family: $font-body;
+    color: $black;
+
+    &.font-loaded {
+        visibility: visible;
+    }
+}
+.is-root-container [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input[type="checkbox"]:focus-visible {
+    outline: 2px solid $secondary !important;
+    outline-offset: 2px !important;
+}
+
+#page-wrapper,
+#content {
+    padding: 0;
+}
+
+// Global container padding (40px on mobile, 25px on desktop)
+.container,
+.container-fluid {
+    --bs-gutter-x: 80px; // 40px left & right on mobile
+
+    @include media-breakpoint-up(md) {
+        --bs-gutter-x: 50px; // 25px left & right on desktop
+    }
+}
+
+.eyebrow {
+    font-family: $font-body;
+    @include typography($eyebrow-text);
+    margin-bottom: 12px;
+    position: relative;
+    display: block;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 16px;
+    }
+}
+
+// Shared Headings Base Styles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: $font-body;
+    color: $black;
+    font-weight: 500;
+    line-height: 1.2em;
+    letter-spacing: 0em;
+    margin: 0 0 24px;
+}
+
+// Headings Fluid Typography Hierarchy
+h1,
+.h1 {
+    font-size: clamp(35px, 1.7rem + 1.95vw, 55px);
+}
+
+h2,
+.h2 {
+    font-size: clamp(30px, 1.5rem + 1vw, 40px);
+}
+
+h3,
+.h3 {
+    font-size: clamp(25px, 1.2rem + 0.8vw, 30px);
+}
+
+h4,
+.h4 {
+    font-size: clamp(20px, 1.2rem + 0.3vw, 22px);
+    line-height: 1.3em;
+}
+
+h5,
+.h5 {
+    font-size: clamp(14px, 0.95rem + 0.2vw, 15px);
+    line-height: 1.3em;
+}
+
+h6,
+.h6 {
+    font-size: clamp(14px, 0.85rem + 0.2vw, 15px);
+    line-height: 1.3em;
+}
+
+a {
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 400;
+    font-family: inherit;
+    color: $km-yellow;
+    text-decoration: none;
+    outline: none !important;
+}
+
+li a {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-family: inherit;
+}
+
+p {
+    @include typography($body-text);
+    font-family: $font-body;
+    color: $dark-gray;
+
+    &.large-text {
+        @include typography($large-body-callout);
+    }
+
+    &.small-text {
+        @include typography($footer-text);
+    }
+
+    &.regular-text {
+        @include typography($body-text);
+    }
+
+    a {
+        color: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+    }
+}
+
+.large-text {
+    @include typography($large-body-callout);
+
+    p,
+    a {
+        font-size: inherit !important;
+        line-height: inherit !important;
+        font-family: inherit !important;
+        letter-spacing: inherit !important;
+    }
+}
+
+.regular-text {
+    @include typography($body-text);
+
+    p,
+    a {
+        font-size: inherit !important;
+        line-height: inherit !important;
+        font-family: inherit !important;
+        letter-spacing: inherit !important;
+        margin-bottom: 24px;
+    }
+}
+
+.small-text {
+    @include typography($footer-text);
+
+    p,
+    a {
+        font-size: inherit !important;
+        line-height: inherit !important;
+        font-family: inherit !important;
+    }
+}
+
+.general-section {
+    position: relative;
+    background-size: cover !important;
+    background-position: 50% 50% !important;
+    z-index: 2;
+    overflow: hidden;
+
+    .container,
+    .container-fluid {
+        position: relative;
+        z-index: 5;
+        --bs-gutter-x: 80px; // 40px left & right padding on mobile
+
+        @include media-breakpoint-up(md) {
+            --bs-gutter-x: 50px; // 25px left & right padding on desktop
+        }
+    }
+
+    .overlay-content {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    &.parallax-effect {
+        background-attachment: inherit !important;
+
+        @include media-breakpoint-up(md) {
+            background-attachment: fixed !important;
+        }
+    }
+
+    // Section container sizes from $section-container-widths map
+    @each $name, $width in $section-container-widths {
+        &.size-#{$name} {
+            > .container {
+                max-width: $width;
+            }
+        }
+    }
+
+    &.size-full {
+        > .container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        &.full-width-with-padding {
+            > .container {
+                padding: 0 40px;
+
+                @include media-breakpoint-up(md) {
+                    padding: 0 25px;
+                }
+            }
+        }
+    }
+
+    .page-numbers {
+        li {
+            padding-bottom: 0px !important;
+        }
+    }
+
+    // --- Fix text color inheritance ---
+    .content-text {
+        p,
+        li,
+        a {
+            color: inherit !important;
+        }
+    }
+
+    .content-video {
+        position: relative;
+
+        video {
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16/9;
+        }
+
+        &.playing:before {
+            opacity: 0;
+        }
+
+        .play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            &:after {
+                content: "";
+                background-image: url("../../images/play-icon.svg");
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: block;
+                width: 50px;
+                height: 50px;
+
+                @include media-breakpoint-up(md) {
+                    width: 61px;
+                    height: 61px;
+                }
+            }
+
+            &:hover {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+    }
+
+    .content-video,
+    .media-video {
+        video {
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16/9;
+        }
+    }
+
+    .video-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        overflow: hidden;
+
+        video {
+            width: 100vw;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+
+    // Gradient Heading
+    .heading {
+        span.gradient-hg-primary {
+            background: linear-gradient(270deg, #ffad5e 2%, #ea471b 10%, #ffad5e 45%, #a0c9cb 55%);
+            background-clip: text;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    // .breadcrumb-site,
+    // .breadcrumbs {
+    //     margin-bottom: 12px;
+    //     font-family: $font-body;
+    //     font-size: 13px;
+    //     font-weight: 500;
+    //     text-transform: uppercase;
+    //     letter-spacing: 0.05em;
+    //     line-height: 1;
+    //     color: $km-blue;
+
+    //     .items-breadcrumb {
+    //         &>span {
+    //             display: inline-block;
+
+    //             &:not(:first-of-type) {
+    //                 margin-left: 3px;
+    //             }
+
+    //             &:not(:last-of-type) {
+    //                 margin-right: 3px;
+    //             }
+    //         }
+    //     }
+
+    //     a,
+    //     span,
+    //     p {
+    //         font-family: inherit;
+    //         font-size: inherit;
+    //         line-height: inherit;
+    //         letter-spacing: inherit;
+    //         color: inherit;
+    //     }
+
+    //     a {
+    //         color: inherit;
+    //         text-decoration: none;
+    //         font-weight: inherit;
+
+    //         &:hover {
+    //             opacity: 0.8;
+    //         }
+    //     }
+
+    //     .current-item,
+    //     .breadcrumb_last,
+    //     span[property="itemListElement"]:last-of-type span,
+    //     span[property="itemListElement"]:last-of-type a {
+    //         font-weight: 500;
+    //         color: inherit;
+    //     }
+    // }
+
+    @media (max-width: map.get($grid-breakpoints, "lg")) {
+        padding-inline: 0 !important;
+
+        &:not(:where(.custom-padding-mobile-top)) {
+            padding-top: 80px !important;
+        }
+
+        &:not(:where(.custom-padding-mobile-bottom)) {
+            padding-bottom: 80px !important;
+        }
+
+        &.side-product {
+            padding-top: 76px !important;
+            padding-bottom: 95px !important;
+        }
+
+        &.side-content-cover {
+            padding-bottom: 286px !important;
+        }
+
+        &.sticky-content-scroll {
+            padding-bottom: 40px !important;
+        }
+
+        &.side-logo-gallery {
+            padding-top: 0 !important;
+        }
+        &.anchorlinks {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+
+    @media (max-width: map.get($grid-breakpoints, "md")) {
+        padding-inline: 0 !important;
+
+        &:not(:where(.custom-padding-mobile-top)) {
+            padding-top: 80px !important;
+        }
+
+        &:not(:where(.custom-padding-mobile-bottom)) {
+            padding-bottom: 80px !important;
+        }
+
+        &.hero-success-stories {
+            padding-top: 60px !important;
+            padding-bottom: 88px !important;
+        }
+
+        &.side-logo-gallery {
+            padding-top: 0 !important;
+        }
+
+        &.hero-stats-img,
+        &.section-hero-bottom-image,
+        &.section-hero-form,
+        &.hero-banner-tabs {
+            padding-top: 60px !important;
+        }
+
+        &.side-links {
+            padding-bottom: 61px !important;
+        }
+
+        &.featured-banner {
+            padding-top: 24px !important;
+        }
+
+        &.hero-featured-posts {
+            padding-top: 60px !important;
+        }
+
+        &.cta-blog {
+            padding-top: 30px !important;
+            padding-bottom: 30px !important;
+        }
+
+        &.cta-form {
+            padding-bottom: 256px !important;
+        }
+    }
+
+    // Ratio Box Styles
+    .ratio-portrait {
+        aspect-ratio: 3 / 4;
+    }
+
+    .ratio-square {
+        aspect-ratio: 1 / 1;
+    }
+
+    .ratio-landscape {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+//breadcrumbs for blocks, singles and template
+.breadcrumb-site,
+.breadcrumbs {
+    margin-bottom: 12px;
+    font-family: $font-body;
+    font-size: clamp(12px, 2vw, 13px);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    color: $km-blue;
+
+    .breadcrumb-separator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 10px;
+        background-image: url("../../images/two-arrow.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    a,
+    span,
+    p {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: inherit;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .current-item,
+    .breadcrumb_last,
+    span[property="itemListElement"]:last-of-type span,
+    span[property="itemListElement"]:last-of-type a {
+        font-weight: 500;
+        color: inherit;
+    }
+}
+
+//Quote
+blockquote {
+    &.wp-block-quote {
+        border-left: initial;
+        padding-left: initial;
+
+        > :last-child {
+            margin-bottom: initial !important;
+        }
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: clamp(35px, 4vw, 42px);
+            height: clamp(35px, 4vw, 36px);
+            margin-bottom: 20px;
+            background-image: url("../../images/quotation_marks.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        p {
+            @include responsive-font-size($large-body-callout);
+            color: $black;
+        }
+    }
+}
+
+//list
+ul,
+ol {
+    &.wp-block-list {
+        padding-left: 1.2rem;
+        margin-bottom: clamp(20px, 3vw, 40px);
+
+        li {
+            margin-bottom: 8px;
+
+            &::marker {
+                color: $km-blue;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            ul,
+            ol {
+                margin-top: 8px;
+                margin-bottom: initial;
+            }
+        }
+    }
+}
+
+// Custom Utility Classes for Block Editor (Custom CSS classes)
+@media (max-width: 767px) {
+    .pt-40 {
+        padding-top: 40px !important;
+    }
+
+    .pb-40 {
+        padding-bottom: 40px !important;
+    }
+}

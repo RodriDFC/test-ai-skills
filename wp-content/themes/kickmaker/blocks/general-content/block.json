@@ -1,0 +1,37 @@
+{
+  "name": "acf/general-content",
+  "title": "General Content",
+  "description": "General content section block with flexible layout options.",
+  "style": [
+    "file:./general-content.css"
+  ],
+  "category": "kickmaker-blocks",
+  "icon": "media-text",
+  "keywords": [
+    "general",
+    "content",
+    "section",
+    "text"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "general-content.php",
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "fullHeight": true,
+    "anchor": true,
+    "className": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  }
+}

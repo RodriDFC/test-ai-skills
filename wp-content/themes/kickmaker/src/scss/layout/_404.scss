@@ -1,0 +1,167 @@
+// 404 Error Page Layout Styles
+
+.page-error-404 {
+    text-align: center;
+
+    &.general-section {
+        @media (max-width: 768px) {
+            padding-top: 60px !important;
+        }
+    }
+
+    .container {
+        max-width: 100%;
+    }
+    .video-container {
+        z-index: 5 !important;
+        pointer-events: none;
+        top: -47%;
+        height: calc(100% + 159px);
+
+        @media (max-width: 1440px) {
+            height: calc(100% + 200px);
+        }
+
+        @media (max-width: 991px) {
+            top: -180px;
+            height: calc(100% + 110px);
+        }
+
+        @media (max-width: 575px) {
+            top: -56%;
+            height: calc(100% + 130px);
+
+            video {
+                object-fit: contain !important;
+            }
+        }
+    }
+
+    &__hero {
+        margin-bottom: 4.75rem; // 76px
+
+        @media (max-width: 991px) {
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 575px) {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-error-404__huge-text {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+
+            @media (max-width: 575px) {
+                margin-bottom: 1rem;
+            }
+
+            svg {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        h1.heading,
+        .heading {
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            position: relative;
+            z-index: 10;
+            font-size: 40px; // Desktop font size
+
+            @media (max-width: 992px) {
+                margin-top: 0;
+            }
+
+            @media (max-width: 768px) {
+                font-size: 30px; // Mobile font size
+            }
+
+            @media (max-width: 575px) {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .content-text {
+            max-width: 837px;
+            font-weight: 600;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+
+            p {
+                margin-bottom: 0;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &__nav-grid {
+        text-align: left;
+        margin: 0 auto;
+    }
+
+    &__nav-card {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            color: #fff;
+
+            .page-error-404__card-icon {
+                transform: translateX(5px);
+                color: #ccff00;
+            }
+
+            .page-error-404__card-heading {
+                color: #ccff00 !important;
+            }
+        }
+    }
+
+    &__card-icon {
+        color: #0db6c9;
+        margin-bottom: 12px;
+        transition:
+            transform 0.3s ease,
+            color 0.3s ease;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    }
+
+    &__card-heading {
+        margin: 0;
+        font-weight: 600;
+        margin-top: 8px;
+        transition: color 0.3s ease;
+    }
+
+    &__card-text {
+        line-height: 150%;
+        p {
+            color: inherit !important;
+            margin-bottom: 0;
+        }
+    }
+
+    &__buttons {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+    }
+}

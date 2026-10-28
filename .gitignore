@@ -1,0 +1,85 @@
+# ==============================================================================
+# Gitignore for WordPress: Only Track wp-content
+# ==============================================================================
+
+# 1. Ignore all files and folders at the root level by default
+/*
+
+# 2. Whitelist root files, README.md, and .vscode folder
+!/.gitignore
+!/README.md
+!/.vscode/
+
+# 3. Whitelist the wp-content folder and all of its contents
+!/wp-content/
+
+# ==============================================================================
+# Exclusions within wp-content (Caches, Logs, Uploads, and Temp Files)
+# ==============================================================================
+
+# Ignore WordPress debug log (highly recommended to prevent exposing errors/credentials)
+/wp-content/debug.log
+/wp-content/*.log
+
+# Ignore update temporary files
+/wp-content/upgrade/
+
+# Ignore page/database caches
+/wp-content/cache/
+/wp-content/et-cache/
+/wp-content/languages/
+
+# Allow All-in-One WP Migration backups (.wpress)
+!/wp-content/ai1wm-backups/
+!*.wpress
+
+# Ignore backup folders
+/wp-content/backups/
+/wp-content/blogs.dir/
+
+# Ignore media uploads (highly recommended to keep repo size small.)
+/wp-content/uploads/
+
+# ==============================================================================
+# Development & System Files
+# ==============================================================================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and editors (track shared project settings & recommendations)
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+*.swo
+*.swp
+
+# Node / Package managers (if any plugins or themes use webpack/npm)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# ==============================================================================
+# Kickmaker Theme Build Artifacts & Temporary Files
+# ==============================================================================
+
+.early.coverage/
+*.coverage
+*.map
+wp-content/themes/kickmaker/__tmp-main.css
+wp-content/themes/kickmaker/node_modules/
+wp-content/themes/kickmaker/dist/
+wp-content/themes/kickmaker/blocks/**/*.css
+wp-content/themes/kickmaker/blocks/**/*.map
+wp-content/themes/kickmaker/blocks/**/*.css.map

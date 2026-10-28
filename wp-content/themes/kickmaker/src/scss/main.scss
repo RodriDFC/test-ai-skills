@@ -1,0 +1,41 @@
+// Theme Variables & Mixins
+@import "theme/variables";
+@import "theme/mixins";
+
+// Fonts
+@import "components/fonts";
+
+// Import Bootstrap from node_modules
+@import "bootstrap/scss/bootstrap";
+
+// Base Theme Styles
+@import "theme/general";
+
+// Layout
+@import "layout/header";
+@import "layout/header_megamenu";
+@import "layout/footer";
+@import "layout/404";
+@import "layout/search";
+@import "layout/single_post";
+@import "layout/single_individual_bio";
+@import "layout/single_event";
+@import "layout/related_insights";
+@import "layout/single_video";
+
+// Components
+@import "components/buttons";
+@import "components/forms";
+@import "components/search_filter";
+@import "components/media_gallery";
+
+// Page Templates
+@import "page-templates/thank_you";
+@import "page-templates/search";
+@import "page-templates/privacy-policy";
+
+// Base overrides
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

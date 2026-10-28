@@ -1,0 +1,574 @@
+// ==========================================================================
+// MEGA MENU
+// Part 1 — Max Mega Menu overrides (#mega-menu-wrap-primary ...)
+// Part 2 — Panel content rendered by the acf/mega-menu-content block (.mm-*)
+// ==========================================================================
+
+$mm-surface-bg: rgba($black, 0.25);
+$mm-muted: rgba($white, 0.65);
+
+// Part 1 — Max Mega Menu overrides
+
+// CSS triangle replaces dashicons
+#mega-menu-wrap-primary
+    #mega-menu-primary
+    > li.mega-menu-item-has-children
+    > a.mega-menu-link
+    > span.mega-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin-left: 6px;
+    padding: 0;
+    font-size: 0;
+    transition: transform 0.25s ease;
+
+    &::after {
+        content: "" !important;
+        display: block;
+        width: 0;
+        height: 0;
+        padding: 0 !important;
+        font-family: inherit !important;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        border-top: 5px solid currentColor;
+    }
+}
+
+#mega-menu-wrap-primary
+    #mega-menu-primary
+    > li.mega-menu-item-has-children.mega-toggle-on
+    > a.mega-menu-link
+    > span.mega-indicator {
+    transform: rotate(180deg);
+}
+
+@include media-breakpoint-only(lg) {
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-item > a.mega-menu-link {
+        padding: 0 6px !important;
+        font-size: 14px !important;
+    }
+}
+
+// Panel width 100% of viewport by resolving against .header-site; inner max-width aligns content with .container.
+@include media-breakpoint-up(lg) {
+    #mega-menu-wrap-primary,
+    #mega-menu-wrap-primary #mega-menu-primary,
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-megamenu {
+        position: static !important;
+    }
+
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-megamenu > ul.mega-sub-menu {
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    #mega-menu-wrap-primary #mega-menu-primary {
+        max-height: 85dvh;
+        overflow-y: auto;
+    }
+
+    // Stroked chevron mask replaces the solid triangle
+    #mega-menu-wrap-primary
+        #mega-menu-primary
+        > li.mega-menu-item-has-children
+        > a.mega-menu-link
+        > span.mega-indicator {
+        margin-left: auto;
+
+        &::after {
+            width: 24px;
+            height: 24px;
+            border: 0;
+            background-color: $km-yellow;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+                center / contain no-repeat;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+                center / contain no-repeat;
+        }
+    }
+
+    #mega-menu-wrap-primary
+        #mega-menu-primary
+        li.mega-menu-megamenu
+        > ul.mega-sub-menu
+        > li.mega-menu-row
+        .mega-menu-column
+        > ul.mega-sub-menu
+        > li.mega-menu-item {
+        padding: 0 0 15px !important;
+    }
+
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-megamenu > ul.mega-sub-menu {
+        background: transparent !important;
+    }
+
+    // Hamburger toggle: shorter bottom bar (::after) styled as percentage of .mega-toggle-animated-inner width.
+    #mega-menu-wrap-primary .mega-menu-toggle .mega-toggle-animated {
+        .mega-toggle-animated-inner::after {
+            right: 0;
+            left: auto;
+            width: 65%;
+        }
+
+        &[aria-expanded="true"] .mega-toggle-animated-inner::after {
+            width: 100%;
+        }
+    }
+
+    // Hamburger toggle blocks right
+    #mega-menu-wrap-primary .mega-menu-toggle .mega-toggle-blocks-right {
+        padding-right: 0 !important;
+
+        .mega-menu-toggle-animated-block {
+            .mega-toggle-animated {
+                .mega-toggle-animated-box {
+                    width: 35px !important;
+
+                    .mega-toggle-animated-inner {
+                        width: 35px !important;
+
+                        &::before {
+                            width: 35px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-item > a.mega-menu-link {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        line-height: 1;
+    }
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-item {
+        margin-bottom: 52px;
+
+        &:first-child {
+            margin-bottom: 32px;
+        }
+
+        &:nth-last-child(2) {
+            margin-bottom: 36px;
+        }
+    }
+
+    #mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-megamenu > ul.mega-sub-menu {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+// Part 2 — Panel content (acf/mega-menu-content)
+
+.mega-menu-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: map-get($section-container-widths, "default");
+    margin: 0 auto;
+    padding-inline: 25px;
+
+    @include media-breakpoint-up(lg) {
+        gap: 16px;
+    }
+
+    // --- Shared card surface ---
+    .mm-surface {
+        padding: 20px;
+        border-radius: 10px;
+        background: $mm-surface-bg;
+
+        @include media-breakpoint-up(lg) {
+            padding: 24px;
+        }
+
+        @include media-breakpoint-down(lg) {
+            border: 1px solid rgba(51, 171, 198, 0.2);
+        }
+    }
+
+    // --- Shared bits ---
+    .mm-underlined {
+        margin-bottom: 20px;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            margin-top: 5px;
+            background-color: $km-yellow;
+        }
+    }
+
+    .mm-icon {
+        flex: 0 0 auto;
+        color: $km-blue;
+        opacity: 0.8;
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    // Same asset turned a quarter to point down in the filter columns.
+    // "icons-right" in the layout's Custom Class field leaves it as the asset comes.
+    .mm-icon-arrow-down {
+        transform: rotate(var(--mm-arrow-turn, 90deg));
+    }
+
+    .mm-link-columns.icons-right {
+        --mm-arrow-turn: 0deg;
+    }
+
+    .mm-list-item {
+        a,
+        .mm-list-item-static {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: $light-gray;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 15px;
+            line-height: 1.35;
+        }
+
+        a:hover,
+        a:focus-visible {
+            color: $white;
+
+            .mm-icon {
+                opacity: 1;
+                transform: translateX(3px);
+            }
+
+            .mm-icon-arrow-down {
+                transform: rotate(var(--mm-arrow-turn, 90deg)) translateX(3px);
+            }
+        }
+    }
+
+    .mm-btn {
+        margin-top: 4px;
+
+        &.mm-btn-primary {
+            --btn-bg: #{$km-yellow};
+            --btn-color: #{$black};
+
+            &:hover,
+            &:focus-visible {
+                --btn-bg: #{$km-blue};
+                --btn-color: #{$white};
+            }
+        }
+
+        &.mm-btn-secondary {
+            --btn-bg: #{$km-blue};
+            --btn-color: #{$white};
+
+            &:hover,
+            &:focus-visible {
+                --btn-bg: #{$km-yellow};
+                --btn-color: #{$black};
+            }
+        }
+    }
+
+    // --- Intro card ---
+    .mm-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 280px;
+
+        &-heading {
+            margin-bottom: 16px;
+            color: $white;
+        }
+
+        &-description {
+            margin-bottom: 20px !important;
+            color: $white;
+        }
+
+        .btn-site {
+            padding: 9px 24px !important;
+        }
+    }
+
+    // --- Numbered cards (Services) ---
+    .mm-numbered-cards {
+        display: grid;
+        flex: 1 1 100%;
+        gap: 8px;
+        grid-template-columns: 1fr;
+
+        @include media-breakpoint-up(lg) {
+            gap: 16px;
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+
+    .mm-numbered-card {
+        @include media-breakpoint-up(lg) {
+            &.mm-span-half {
+                grid-column: span 3;
+            }
+
+            &.mm-span-third {
+                grid-column: span 2;
+            }
+        }
+
+        &-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        &-number {
+            font-weight: 700;
+            color: $white;
+            font-size: 18px;
+            line-height: 1.3;
+        }
+
+        &-title {
+            margin: 0;
+            padding-left: 14px;
+            border-left: 2px solid $km-yellow;
+            color: $white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        &-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    }
+
+    // Collapse toggle: mobile only, the whole list is always open from lg up.
+    .mm-card-toggle {
+        display: none;
+    }
+
+    // --- Link columns (Success Stories) ---
+    .mm-link-columns {
+        display: grid;
+        flex: 3 1 520px;
+        gap: 8px;
+        grid-template-columns: 1fr;
+
+        @include media-breakpoint-up(md) {
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+    }
+
+    .mm-link-column {
+        &-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        &-title {
+            display: block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            @include typography($eyebrow-text);
+            font-weight: 500;
+            color: $white;
+        }
+    }
+
+    .mm-link-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    // --- Text cards (Insights / Company) ---
+    .mm-text-cards {
+        display: grid;
+        flex: 1 1 100%;
+        gap: 8px;
+        grid-template-columns: 1fr;
+
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        @include media-breakpoint-up(lg) {
+            gap: 16px;
+        }
+    }
+
+    .mm-text-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &-title {
+            margin-bottom: 16px;
+            color: $white;
+        }
+
+        &-text {
+            margin-bottom: 20px !important;
+            color: $white;
+        }
+
+        .btn-site {
+            padding: 9px 24px !important;
+        }
+    }
+
+    // --- Footer bar ---
+    .mm-footer-bar {
+        display: flex;
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        &-text {
+            margin: 0;
+            color: $light-gray;
+            font-size: 14px;
+            margin-bottom: 0 !important;
+        }
+
+        &-link {
+            color: $km-yellow;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            &:hover,
+            &:focus-visible {
+                color: $km-blue;
+            }
+        }
+    }
+
+    // --- Mobile / tablet: numbered cards become an accordion ---
+    // State is driven by src/js/modules/header.js (.is-collapsed + aria-expanded).
+    @include media-breakpoint-down(lg) {
+        padding: 0;
+        margin-top: 16px;
+
+        .mm-card-toggle {
+            position: relative;
+            display: inline-flex;
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background-color: $km-blue;
+            cursor: pointer;
+
+            // Plus icon the vertical bar
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: $black;
+                border-radius: 1px;
+                transition:
+                    opacity 0.2s ease,
+                    transform 0.2s ease;
+            }
+
+            &::before {
+                width: 10px;
+                height: 2px;
+            }
+
+            &::after {
+                width: 2px;
+                height: 10px;
+            }
+
+            &[aria-expanded="true"]::after {
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+        .mm-numbered-card {
+            padding: 24px 24px 24px 16px;
+
+            &-head {
+                cursor: pointer;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+
+            &-items {
+                padding-left: 36px;
+            }
+
+            &.is-collapsed {
+                .mm-numbered-card-head {
+                    margin-bottom: 0;
+                }
+
+                .mm-numbered-card-items {
+                    display: none;
+                }
+            }
+        }
+
+        .mm-link-column {
+            &-head {
+                cursor: pointer;
+            }
+
+            .mm-link-list {
+                padding-left: 36px;
+            }
+
+            &.is-collapsed {
+                .mm-link-column-title {
+                    margin-bottom: 0;
+                }
+
+                .mm-link-list {
+                    display: none;
+                }
+            }
+        }
+
+        .mm-footer-bar {
+            margin-top: 8px;
+        }
+    }
+}

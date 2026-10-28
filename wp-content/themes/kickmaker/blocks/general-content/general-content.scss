@@ -1,0 +1,11 @@
+// General Content Block Styles
+
+.block-content {
+    // Base layout styles for general content block
+
+    &--video {
+        @media (max-width: 767.98px) {
+            padding-top: 40px !important;
+        }
+    }
+}

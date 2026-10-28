@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+
+// Clean & Responsive Typography Mixin
+// Usage:
+// 1) Map: @include typography($body-text);
+// 2) Map + Custom Breakpoint: @include typography($eyebrow-text, lg);
+// 3) Tuple: @include typography((14px, 18px), lg);
+// 4) Direct values: @include typography(14px, 18px, lg);
+
+@mixin typography($config, $custom-breakpoint: null, $default-bp: md) {
+    $mobile: null;
+    $desktop: null;
+    $bp: $default-bp;
+
+    @if $custom-breakpoint != null {
+        $bp: $custom-breakpoint;
+    }
+
+    @if meta.type-of($config) == "map" {
+        // Output font styling properties if present in map
+        @each $prop in (font-weight, line-height, letter-spacing) {
+            $val: map.get($config, $prop);
+            @if $val != null {
+                #{$prop}: $val;
+            }
+        }
+
+        $mobile: map.get($config, mobile);
+        $desktop: map.get($config, desktop);
+
+        $map-bp: map.get($config, breakpoint);
+        @if $custom-breakpoint == null and $map-bp != null {
+            $bp: $map-bp;
+        }
+    } @else if meta.type-of($config) == "list" {
+        $mobile: list.nth($config, 1);
+        $desktop: $mobile;
+        @if list.length($config) > 1 {
+            $desktop: list.nth($config, 2);
+        }
+    } @else {
+        $mobile: $config;
+        $desktop: $custom-breakpoint;
+        $bp: $default-bp;
+    }
+
+    @if $mobile != null {
+        font-size: $mobile;
+    }
+
+    @if $desktop != null and $desktop != $mobile {
+        @include media-breakpoint-up($bp) {
+            font-size: $desktop;
+        }
+    }
+}
+
+// Alias for backwards compatibility
+@mixin responsive-font-size($args...) {
+    @include typography($args...);
+}

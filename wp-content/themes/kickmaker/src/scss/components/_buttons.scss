@@ -1,0 +1,64 @@
+// ==========================================
+// BUTTON CONTAINER (.content-buttons)
+// ==========================================
+.content-buttons {
+    display: flex;
+    gap: 29px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    // Custom horizontal alignment options
+    &.buttons-justification-start,
+    &.buttons-justification-star {
+        justify-content: flex-start;
+    }
+
+    &.buttons-justification-center {
+        justify-content: center;
+    }
+
+    &.buttons-justification-end {
+        justify-content: flex-end;
+    }
+
+    &.buttons-justification-between {
+        justify-content: space-between;
+    }
+}
+
+// ==========================================
+// BASE BUTTON STYLES (.btn-site)
+// ==========================================
+.btn-site {
+    //responsive size in variables
+    @include responsive-font-size($button-text);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: $font-body;
+    padding: 12px 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    isolation: isolate;
+    color: var(--btn-color, $white);
+    background-color: var(--btn-bg, $km-blue);
+    transition: 0.2s ease-in-out;
+
+    &[style*="--btn-bg: #33ABC6"] {
+        &:hover {
+            color: $black;
+            background-color: $km-yellow;
+        }
+    }
+
+    &[style*="--btn-bg: #CCFF00"] {
+        &:hover {
+            color: $white;
+            background-color: $km-blue;
+        }
+    }
+}

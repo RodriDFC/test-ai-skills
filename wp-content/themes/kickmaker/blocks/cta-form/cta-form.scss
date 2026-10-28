@@ -1,0 +1,232 @@
+@import "../../src/scss/theme/variables";
+@import "../../src/scss/theme/mixins";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.cta-form {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    &.bg-arrow {
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            right: auto;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1137 / 850;
+            pointer-events: none;
+            background-image: url("../../src/images/KM_Amplifier_form_v2.svg");
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: 100% 100%;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            right: 0;
+            top: 0;
+            width: 36%;
+            max-width: 512px;
+            height: 100%;
+            background: linear-gradient(270deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+        }
+    }
+
+    &.bg-color {
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $black;
+            opacity: 0.7;
+        }
+    }
+
+    > .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .row {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-inline: 0;
+        gap: 41px;
+    }
+
+    .row > .col-12 {
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 0;
+    }
+
+    .title-content {
+        width: 100%;
+        max-width: 100%;
+
+        .cta-form__video-eyebrow {
+            width: 137px;
+            height: 65px;
+            aspect-ratio: 137 / 65;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .cta-form__video {
+            display: block;
+            width: 137px;
+            height: 65px;
+            aspect-ratio: 137 / 65;
+            object-fit: contain;
+        }
+
+        .heading,
+        .content-text {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .heading {
+            margin-bottom: 20px !important;
+        }
+
+        .content-text {
+            margin-bottom: 0;
+
+            > :last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .button-group,
+        .buttons-wrapper {
+            margin-top: 24px;
+        }
+    }
+
+    .content-form {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+    }
+
+    .form-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+    }
+
+    .gform_wrapper {
+        width: 100%;
+        .gform_confirmation_message {
+            color: $white;
+        }
+    }
+
+    .iframe-content {
+        width: 100%;
+
+        iframe {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            border: 0;
+        }
+    }
+
+    .no-found {
+        position: relative;
+        z-index: 2;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        &.bg-arrow {
+            &::before {
+                right: 0;
+                bottom: auto;
+                left: auto;
+                max-width: 1137px;
+                height: 100%;
+                aspect-ratio: auto;
+                min-height: 850px;
+                background-position: right center;
+                background-size: 100% 100%;
+            }
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 449px);
+            column-gap: clamp(80px, 14vw, 220px);
+            align-items: center;
+        }
+
+        .row > .col-md-6:first-child {
+            display: flex;
+            align-items: center;
+        }
+
+        .row > .col-md-6:last-child {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .title-content {
+            width: 100%;
+            max-width: 381px;
+
+            .cta-form__video-eyebrow {
+                margin-bottom: 31px;
+            }
+
+            .heading {
+                margin-bottom: 24px;
+            }
+        }
+
+        .content-form {
+            width: 100%;
+            max-width: 449px;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 449px;
+        }
+
+        .gform_wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    @include media-breakpoint-up(xl) {
+        .row {
+            column-gap: clamp(120px, 16vw, 260px);
+        }
+    }
+}

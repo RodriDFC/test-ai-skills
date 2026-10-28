@@ -1,0 +1,117 @@
+.module-media-gallery {
+    position: relative;
+    width: 100%;
+
+    &__slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .swiper-wrapper {
+        align-items: stretch;
+    }
+
+    &__slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+    }
+
+    &__figure {
+        width: 100%;
+        margin: 0;
+        display: block;
+    }
+
+    &__img,
+    &__video {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    &__pagination {
+        position: relative !important;
+        inset: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        margin-top: 20px;
+        z-index: 2;
+
+        .swiper-pagination-bullet {
+            cursor: pointer;
+            width: 8px;
+            height: 8px;
+            background-color: $km-blue;
+            opacity: 1;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            margin: 0 !important;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &-active {
+                width: 28px;
+                height: 8px;
+                border-radius: 4px;
+                background-color: $km-blue;
+                opacity: 1;
+            }
+        }
+    }
+    &__nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            position: static !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0;
+            padding: 0;
+            border-radius: 50%;
+            background-color: $km-blue;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+
+            &::after {
+                content: none;
+            }
+
+            svg {
+                display: block;
+                width: 11px;
+                height: 18px;
+                fill: none;
+                path { transition: stroke 0.3s ease; }
+            }
+
+            &:hover {
+                background-color: $km-yellow;
+                transform: scale(1.05);
+
+                svg path {
+                    stroke: $black !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "kickmaker",
+  "version": "1.0.0",
+  "description": "Kickmaker WordPress Theme",
+  "main": "index.js",
+  "scripts": {
+    "build:blocks": "sass --quiet-deps --silence-deprecation=import blocks/:blocks/ --style compressed --load-path=node_modules",
+    "watch:blocks": "sass --quiet-deps --silence-deprecation=import --watch blocks/:blocks/ --load-path=node_modules",
+    "build:js": "vite build --config vite.config.js",
+    "watch:js": "vite build --config vite.config.js --watch",
+    "build:images": "node scripts/optimize-images.js",
+    "build": "npm run build:blocks && npm run build:js && npm run build:images",
+    "watch": "npm run build:images && concurrently \"npm:watch:blocks\" \"npm:watch:js\"",
+    "format": "prettier --write \"**/*.{scss,js,json,md,php}\"",
+    "format:check": "prettier --check \"**/*.{scss,js,json,md,php}\""
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.3",
+    "gsap": "^3.15.0",
+    "swiper": "^14.0.6"
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.25.0",
+    "concurrently": "^10.0.4",
+    "glob": "^10.3.10",
+    "prettier": "^3.9.6",
+    "sass": "^1.71.1",
+    "sharp": "^0.33.2",
+    "vite": "^8.1.5"
+  }
+}

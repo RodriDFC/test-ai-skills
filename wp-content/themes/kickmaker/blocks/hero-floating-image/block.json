@@ -1,0 +1,41 @@
+{
+  "name": "acf/hero-floating-image",
+  "title": "Hero Floating Image",
+  "description": "Responsive hero section with floating image and market navigation.",
+  "style": [
+    "file:./hero-floating-image.css"
+  ],
+  "viewScript": [
+    "file:./hero-floating-image.js"
+  ],
+  "category": "kickmaker-blocks",
+  "icon": "align-pull-right",
+  "keywords": [
+    "hero",
+    "floating",
+    "image",
+    "market",
+    "navigation"
+  ],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "hero-floating-image.php",
+    "blockVersion": 3,
+    "hideFieldsInSidebar": true
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "fullHeight": true,
+    "anchor": true,
+    "className": true
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    }
+  }
+}

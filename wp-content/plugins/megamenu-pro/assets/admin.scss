@@ -1,0 +1,428 @@
+/**
+ * Max Mega Menu Pro — admin styles
+ * All rules are scoped to body.maxmegamenu-admin (added by Max Mega Menu on relevant admin screens).
+ * Source: admin.scss → compile to admin.css (e.g. `sass admin.scss admin.css`)
+ */
+
+body.maxmegamenu-admin {
+	// ---------------------------------------------------------------------------
+	// Icon block: block-title preview
+	// ---------------------------------------------------------------------------
+
+	.icon_block .block-title span {
+		font-size: 20px;
+
+		&:before {
+			font-family: dashicons;
+			content: attr(rel);
+		}
+
+		&[class^='fa'] {
+			font-size: 16px;
+		}
+	}
+
+	.icon_block .block-title span[class^='fa']:before        { font-family: FontAwesome; }
+	.icon_block .block-title span[class^='fab']:before       { font-family: 'Font Awesome 5 Brands'; font-weight: 400; }
+	.icon_block .block-title span[class^='far']:before       { font-family: 'Font Awesome 5 Free';   font-weight: 400; }
+	.icon_block .block-title span[class^='fas']:before       { font-family: 'Font Awesome 5 Free';   font-weight: 900; }
+	.icon_block .block-title span[class^='fab'].fa6:before   { font: var(--fa-font-brands);   font-size: 16px; }
+	.icon_block .block-title span[class^='far'].fa6:before   { font: var(--fa-font-regular);  font-size: 16px; }
+
+	// ---------------------------------------------------------------------------
+	// MMMIconSelector: toggle block icon selector width
+	// ---------------------------------------------------------------------------
+
+	.block-settings .mmm-icon-selector-dropdown {
+		width: 400px;
+	}
+
+	// ---------------------------------------------------------------------------
+	// MMMIconSelector: Font Awesome font-family for icon previews
+	// ---------------------------------------------------------------------------
+
+	.mmm-icon-selector-item-preview,
+	.mmm-icon-selector-trigger-preview {
+		i { font-style: normal; }
+
+		i[class^='fas'].fa6  { font: var(--fa-font-solid);}
+	}
+
+	// ---------------------------------------------------------------------------
+	// Image selector (custom icon, theme editor, etc.) — shared, not modal-only
+	// ---------------------------------------------------------------------------
+
+	.mmm_image_selector {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: 5px;
+
+		// Preview is hidden until an image exists; use `.mmm_image_selector__btn--choose` first, then click the preview to replace.
+		.mmm_image_selector__preview {
+			display: none;
+			appearance: none;
+			padding: 0;
+			margin: 0;
+			border: 0;
+			background: transparent;
+			cursor: pointer;
+			box-sizing: border-box;
+			font: inherit;
+			line-height: 0;
+			align-items: stretch;
+			max-width: 100%;
+
+			&:focus {
+				outline: none;
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--wp-admin-theme-color, #3858e9);
+				outline-offset: 2px;
+			}
+
+			img {
+				flex: 0 1 auto;
+				display: block;
+				max-width: 200px;
+				vertical-align: top;
+				height: auto;
+				width: auto;
+				object-fit: contain;
+				// SVGs (and some thumbnails) can report 0×0 to the browser until explicit bounds exist.
+				min-width: 48px;
+				min-height: 48px;
+			}
+		}
+
+		&.has_image .mmm_image_selector__preview {
+			display: inline-flex;
+			// Transparency grid (e.g. PNG/SVG) — same idea as image editors.
+			background-color: #fff;
+			background-image:
+				linear-gradient(45deg, #dcdcde 25%, transparent 25%),
+				linear-gradient(-45deg, #dcdcde 25%, transparent 25%),
+				linear-gradient(45deg, transparent 75%, #dcdcde 75%),
+				linear-gradient(-45deg, transparent 75%, #dcdcde 75%);
+			background-size: 12px 12px;
+			background-position:
+				0 0,
+				0 6px,
+				6px -6px,
+				-6px 0;
+		}
+
+		// Edit (choose) control only when no image yet; remove only when an image is set.
+		.mmm_image_selector__btn--choose {
+			display: inline-block;
+		}
+
+		&.has_image .mmm_image_selector__btn--choose {
+			display: none;
+		}
+
+		.button.button-compact:has(.dashicons).mmm_image_selector__btn--remove {
+			display: none;
+		}
+
+		&.has_image .button.button-compact:has(.dashicons).mmm_image_selector__btn--remove {
+			display: inline-flex;
+		}
+	}
+
+	.megamenu_outer_wrap .megamenu_right .menu_settings .mmm_image_selector {
+		float: right;
+		width: 50%;
+	}
+
+	// ---------------------------------------------------------------------------
+	// Menu item modal (replaces legacy colorbox `#cboxContent`)
+	// ---------------------------------------------------------------------------
+
+	.megamenu-admin-modal {
+		// Icon picker tabs (Font Awesome / Genericons)
+		.menu_icon {
+			.mm_tab_fontawesome label:before,
+			.mm_tab_fontawesome5 label:before,
+			.mm_tab_fontawesome6 label:before {
+				font-size: 24px;
+				text-align: center;
+			}
+
+			.mm_tab_fontawesome .fa {
+				font-family: 'FontAwesome';
+			}
+
+			.mm_tab_fontawesome5 {
+				.fas,
+				.far {
+					font-family: 'Font Awesome 5 Free';
+				}
+
+				.fas.pro,
+				.far.pro,
+				.fal.pro {
+					font-family: 'Font Awesome 5 Pro';
+				}
+
+				.fab {
+					font-family: 'Font Awesome 5 Brands';
+					font-weight: 400;
+				}
+
+				.far {
+					font-weight: 400;
+				}
+
+				.fas {
+					font-weight: 900;
+				}
+
+				.fal {
+					font-weight: 300;
+				}
+			}
+
+			.icon_selector .genericon label:before {
+				font-size: 24px;
+				text-align: center;
+			}
+
+			[class^='megamenu_tab_'] > .notice {
+				float: none;
+				width: 100%;
+				height: auto;
+				padding: 10px;
+				margin: 0 0 20px;
+				box-sizing: border-box;
+			}
+
+			img[src=''] {
+				display: none;
+			}
+		}
+
+		// Spectrum colour picker (style overrides tab)
+		.mm-picker-container {
+			border-radius: 3px;
+			border: 1px solid var(--wp-components-color-gray-700, #8c8f94);
+			font-size: 0.9em;
+			margin-right: 20px;
+			float: left;
+
+			.sp-replacer {
+				margin: 0;
+				float: left;
+				border: 0;
+				background: transparent;
+				padding: 0;
+
+				.sp-preview {
+					border: 0;
+					height: 26px;
+					width: 26px;
+					margin: 0;
+					border-right: 1px solid var(--wp-components-color-gray-700, #8c8f94);
+				}
+			}
+
+			.sp-dd {
+				display: none;
+			}
+
+			.sp-palette-container {
+				width: 40px;
+			}
+
+			input.mm_colorpicker {
+				float: left;
+				border: 0;
+				height: 23px;
+				box-shadow: 0 0 0;
+				margin: 0;
+			}
+
+			div.chosen-color {
+				border-radius: 0 2px 2px 0;
+				color: var(--wp-components-color-gray-800, #50575e);
+				font-size: 11px;
+				line-height: 26px;
+				padding: 0 6px;
+				text-align: center;
+				float: left;
+				cursor: default;
+			}
+		}
+
+		.mmm_image_selector img {
+			background-color: #fefefe;
+			background-image:
+				linear-gradient(45deg, var(--wp-components-color-gray-400, #ccc) 25%, transparent 25%, transparent 75%, var(--wp-components-color-gray-400, #ccc) 75%, var(--wp-components-color-gray-400, #ccc)),
+				linear-gradient(45deg, var(--wp-components-color-gray-400, #ccc) 25%, transparent 25%, transparent 75%, var(--wp-components-color-gray-400, #ccc) 75%, var(--wp-components-color-gray-400, #ccc));
+			background-size: 20px 20px;
+			background-position: 0 0, 10px 10px;
+			max-width: 150px;
+			max-height: 150px;
+		}
+
+		// Replacements (CodeMirror, logo fields)
+		.replacements {
+			.mega-value .mega-description {
+				font-family: monospace;
+			}
+
+			.CodeMirror {
+				height: 150px;
+				border: 1px solid var(--wp-components-color-gray-600, #949494);
+			}
+
+			tr {
+				background: transparent;
+			}
+
+			table label:not(.mega-desc-with-input) {
+				font-size: 0.9em;
+				float: left;
+				margin-right: 10px;
+
+				span.mega-short-desc {
+					font-size: 0.8em;
+					text-transform: uppercase;
+					color: var(--wp-components-color-gray-600, #949494);
+					display: block;
+					margin: 0 0 2px 1px;
+				}
+			}
+
+			table input.mm_logo_url {
+				width: 200px;
+			}
+		}
+
+		table tr.logo_tip td.mega-value {
+			font-style: italic;
+		}
+
+		// Tabbed / badge modal chrome
+		.mm_content.mega_menu {
+			#megamenu-tabbed {
+				display: none;
+				margin-top: 20px;
+
+				p {
+					font-style: italic;
+				}
+			}
+
+			&[data-type='tabbed'] #megamenu-tabbed {
+				display: block;
+			}
+		}
+
+		.mm_tab_container .mm_tab {
+			&.styling:before {
+				content: '\f540';
+			}
+
+			&.roles:before {
+				content: '\f110';
+			}
+
+			&.badge:before {
+				content: '\f484';
+			}
+
+			&.image_swap:before {
+				content: '\f233';
+			}
+		}
+
+		.badge table td.mega-value input[type='text'] {
+			width: 200px;
+		}
+	}
+
+	// ---------------------------------------------------------------------------
+	// Sticky extension + meta box
+	// ---------------------------------------------------------------------------
+
+	// Locations page: hide the rest of the sticky settings until "Enabled" is checked (no JS).
+	table.sticky.mmm-settings-table:has(input[name$='[sticky_enabled]']:not(:checked)) tr:not(.mega-sticky_enabled) {
+		display: none;
+	}
+
+	.mega-value .mega-after {
+		vertical-align: inherit;
+		font-size: 0.9em;
+		opacity: 0.8;
+		margin-left: 3px;
+	}
+
+	.megamenu_outer_wrap .megamenu_right .menu_settings table .toggle-bar-designer .mega-blocks .block .block-title .fa {
+		width: 20px;
+		height: 20px;
+		text-align: center;
+	}
+
+	// General settings (Pro): icon enqueue checkbox list in td.mega-value.
+	ul.mmm-icon-enqueue-list {
+		margin: 0;
+	}
+
+	// ---------------------------------------------------------------------------
+	// License tab (Pro)
+	// ---------------------------------------------------------------------------
+
+	.mmm-license-mega-value {
+		.mmm-license-controls {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			margin-bottom: 40px;
+		}
+
+		.mmm-license-row--primary {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.mmm-license-col--key {
+			flex: 1 1 200px;
+			min-width: 0;
+
+			input[name='edd_mmm_license_key'] {
+				height: 32px;
+				width: 25em;
+				max-width: 100%;
+			}
+		}
+
+		.mmm-license-col--activate {
+			display: flex;
+			align-items: center;
+			flex: 0 0 auto;
+		}
+
+		.mmm-license-activate-submit {
+			width: auto;
+		}
+
+		.mmm-license-row--secondary {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.mmm-license-deactivate-wrap {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	// Back link text template is set in the menu theme editor (Mobile → Off Canvas).
+}

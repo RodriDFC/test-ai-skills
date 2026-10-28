@@ -1,0 +1,319 @@
+@import "../../src/scss/theme/variables";
+@import "../../src/scss/theme/mixins";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.hero-floating-image {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    // Subtle background gradient matching references
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: linear-gradient(180deg, #ffffff 0%, #f4f5f7 100%);
+    }
+
+    // Main layout row inside .container
+    &__row {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @include media-breakpoint-up(lg) {
+            flex-direction: row;
+            align-items: center;
+            min-height: clamp(600px, 72vh, 850px);
+        }
+    }
+
+    // Left content column
+    &__content-col {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+
+        @include media-breakpoint-up(lg) {
+            width: 50%;
+            max-width: 580px;
+            padding-right: 30px;
+        }
+
+        .title-content {
+            margin-bottom: 24px;
+
+            @include media-breakpoint-up(lg) {
+                margin-bottom: 32px;
+            }
+
+            .eyebrow {
+                display: block;
+                font-family: $font-body;
+                font-size: 13px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #051c2c;
+                margin-bottom: 16px;
+
+                // Hidden on mobile (< 992px) as shown in mobile reference
+                @media (max-width: 991.98px) {
+                    display: none !important;
+                }
+            }
+
+            .heading {
+                font-family: $font-body;
+                font-weight: 800;
+                line-height: 1.15;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+                color: #051c2c;
+                font-size: 32px;
+
+                @include media-breakpoint-up(sm) {
+                    font-size: 38px;
+                }
+
+                @include media-breakpoint-up(lg) {
+                    font-size: 46px;
+                }
+
+                @include media-breakpoint-up(xl) {
+                    font-size: 52px;
+                }
+
+                strong,
+                span.text-accent,
+                span.text-red {
+                    color: #e02b20;
+                }
+            }
+
+            .content-text {
+                font-family: $font-body;
+                font-size: 15px;
+                line-height: 1.6;
+                color: #4a4a4a;
+                max-width: 460px;
+
+                @include media-breakpoint-up(lg) {
+                    font-size: 16px;
+                }
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    // Desktop navigation list (>= 992px)
+    &__nav {
+        display: none;
+
+        @include media-breakpoint-up(lg) {
+            display: block;
+            margin-top: 24px;
+        }
+    }
+
+    &__nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__nav-item {
+        margin: 0;
+    }
+
+    &__nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: #051c2c;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            opacity: 0.85;
+            transform: translateX(4px);
+
+            .hero-floating-image__nav-arrow {
+                transform: translateY(2px);
+            }
+        }
+
+        &:focus-visible {
+            outline: 2px solid #e02b20;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+    }
+
+    &__nav-icon-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    &__nav-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__nav-text {
+        font-family: $font-body;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #051c2c;
+    }
+
+    &__nav-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #e02b20;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+
+    // Floating Image Media column
+    &__media-col {
+        width: 100%;
+        margin-top: 24px;
+        margin-bottom: 24px;
+
+        // Mobile layout (< 992px): in normal document flow between text and selector
+        @media (max-width: 991.98px) {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        // Desktop layout (>= 992px): absolute, right-aligned to viewport edge
+        @include media-breakpoint-up(lg) {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            width: 54%;
+            max-width: 1040px;
+            margin: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        // Above 1920px: freeze horizontal position so right edge stays at 1920px
+        @media (min-width: 1920px) {
+            right: calc(100% - 1920px);
+        }
+    }
+
+    &__image-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        @include media-breakpoint-up(lg) {
+            justify-content: flex-end;
+        }
+    }
+
+    &__img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+
+        @media (max-width: 991.98px) {
+            width: 100%;
+            max-width: 340px;
+        }
+
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            max-height: 80vh;
+            object-position: right center;
+        }
+    }
+
+    // Mobile Selector (< 992px)
+    &__select-wrapper {
+        width: 100%;
+        margin-top: 8px;
+
+        @include media-breakpoint-up(lg) {
+            display: none !important;
+        }
+    }
+
+    &__select-custom {
+        position: relative;
+        width: 100%;
+    }
+
+    &__select {
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: #ffffff;
+        border: 1px solid #e2e4e8;
+        border-radius: 8px;
+        padding: 14px 44px 14px 20px;
+        font-family: $font-body;
+        font-size: 15px;
+        font-weight: 500;
+        color: #6c757d;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #051c2c;
+            box-shadow: 0 0 0 3px rgba(5, 28, 44, 0.15);
+        }
+
+        option {
+            color: #051c2c;
+            padding: 10px;
+        }
+
+        option[disabled] {
+            color: #6c757d;
+        }
+    }
+
+    &__select-arrow {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e02b20;
+    }
+}

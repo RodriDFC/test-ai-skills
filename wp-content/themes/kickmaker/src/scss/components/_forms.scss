@@ -1,0 +1,213 @@
+// Form Component Styles
+
+.content-form,
+.form-container {
+    .gform_heading {
+        display: none;
+    }
+}
+
+.text-light {
+
+    .gform_confirmation_wrapper .gform_confirmation_message,
+    .gform-icon--circle-error,
+    .gform_submission_error,
+    .gform_validation_error_link {
+        color: #fff !important;
+    }
+
+    form {
+
+        label,
+        .gfield_label,
+        p,
+        .gfield_fileupload_rules,
+        .gform_fileupload_rules,
+        .gfield_validation_message {
+            color: #fff !important;
+
+            .gfield_required {
+                color: #fff;
+            }
+        }
+
+        input[type="file"] {
+            color: #fff !important;
+        }
+    }
+}
+
+.text-dark {
+    .gform_confirmation_wrapper .gform_confirmation_message {
+        color: #3f3f3f;
+    }
+
+    form {
+
+        label,
+        .gfield_label,
+        p {
+            color: #3f3f3f !important;
+        }
+    }
+}
+
+form {
+    .gform_fields {
+        --gf-form-gap-y: 10px;
+    }
+
+    .gfield_label {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.3em;
+    }
+
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]),
+    select,
+    textarea {
+        padding: 10px 15px !important;
+        color: #3f3f3f !important;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.86em !important;
+        height: auto !important;
+        background: white;
+        border-radius: 0px !important;
+    }
+
+    textarea {
+        height: 110px !important;
+        min-block-size: 110px !important;
+    }
+
+    .gfield--type-fileupload {
+        margin-top: 10px;
+
+        .gfield_label {
+            font-weight: 700;
+        }
+    }
+
+    input[type="file"] {
+        position: relative;
+        padding: 0 !important;
+        font-size: 0 !important;
+        color: transparent !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        cursor: pointer;
+        height: 44px !important;
+        line-height: 44px !important;
+        display: inline-flex;
+        align-items: center;
+
+        &::-webkit-file-upload-button {
+            visibility: hidden !important;
+            width: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+        }
+
+        &::file-selector-button {
+            visibility: hidden !important;
+            width: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+        }
+
+        &::before {
+            content: "Choose a file" !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background-color: $km-blue !important;
+            color: $white !important;
+            border-radius: 50px !important;
+            padding: 9px 25px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            line-height: 1 !important;
+            cursor: pointer;
+            margin-right: 15px !important;
+            visibility: visible !important;
+            transition: opacity 0.3s ease;
+        }
+
+        &:hover::before {
+            opacity: 0.85;
+        }
+
+        &::after {
+            content: "no file chosen" !important;
+            color: inherit;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+            line-height: 1 !important;
+            visibility: visible !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            max-width: 120px;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+        &[data-file-name]::after {
+            content: attr(data-file-name) !important;
+        }
+
+        @include media-breakpoint-up(sm) {
+            &::after {
+                max-width: 200px;
+            }
+        }
+
+        @include media-breakpoint-up(md) {
+            &::after {
+                max-width: 280px;
+            }
+        }
+    }
+
+    .gfield_fileupload_rules,
+    .gform_fileupload_rules,
+    .gfield--type-fileupload .gfield_description {
+        display: none !important;
+    }
+
+    p {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.3em;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .gform-footer {
+        margin-top: 18px;
+
+        .gform_button {
+            padding: 12px 24px !important;
+            border-radius: 200px !important;
+            background: #cf0 !important;
+            color: #000 !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            line-height: 1.1em !important;
+
+            &:hover {
+                background: #33abc6 !important;
+                color: #fff !important;
+            }
+        }
+    }
+}
